@@ -1,0 +1,23 @@
+{
+  "name": "career-camp-placement-cell",
+  "version": "1.0.0",
+  "description": "A placement cell app where the team of career camp can manage student interviews and student data",
+  "main": "server.js",
+
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Ashish Thotwe",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.3",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
+  }
+}
