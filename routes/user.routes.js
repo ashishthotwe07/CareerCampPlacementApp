@@ -2,6 +2,8 @@
 
 import express from 'express';
 import UserController from '../controllers/user.controller.js';
+import passport from 'passport';
+
 
 const router = express.Router();
 const userController = new UserController();
@@ -16,6 +18,13 @@ router.post('/signup', userController.signUp);
 router.get('/signin', userController.renderSignInForm);
 
 // Handle user signin
-router.post('/signin', userController.signIn);
+router.post('/signin', passport.authenticate('local', {
+    successRedirect: '/dashboard', // Redirect on successful signin
+    failureRedirect: '/users/signin', // Redirect on failure, back to signin
+    failureFlash: true, // Enable flash messages for failure messages
+  }),
+  userController.signIn
+);
 
+router.get('/signout' , userController.logout);
 export default router;
