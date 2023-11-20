@@ -1,36 +1,94 @@
-<h2>Student Information</h2>
+<div class="col">
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>Student ID</th>
-      <th>Student Name</th>
-      <th>Student College</th>
-      <th>Student Status</th>
-      <th>DSA Final Score</th>
-      <th>WebD Final Score</th>
-      <th>React Final Score</th>
-      <th>Interview Date</th>
-      <th>Interview Company</th>
-      <th>Interview Result</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td1</td>
-        <td>Ashish</td>
-        <td>Deogiri College</td>
-        <td>Not placed</td>
-        <td>12 dec</td>
-        <td>1000</td>
-        <td>1000</td>
-        <td>2000</td>
-        <td>Google</td>
-        <td>On
-          Hold,</td>
-      </tr>
- 
-  </tbody>
-</table>
+  <!-- Card -->
+  <div class="card border-0 flex-fill w-100" data-list="{&quot;valueNames&quot;: [&quot;name&quot;, &quot;email&quot;, &quot;id&quot;, {&quot;name&quot;: &quot;date&quot;, &quot;attr&quot;: &quot;data-signed&quot;}, &quot;status&quot;], &quot;page&quot;: 8}" id="users">
+    <div class="card-header border-0 card-header-space-between">
 
-<!--  -->
+      <!-- Title -->
+      <div class="d-flex justify-content-between">
+        <h2 class="card-header-title h4 text-uppercase">
+          Students
+        </h2>
+
+        <a class="btn btn-outline-success" href="/students/add" role="button">Add Student</a>
+
+      </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table align-middle table-edge table-hover table-nowrap mb-0">
+        <thead class="thead-light">
+          <tr>
+            <th class="w-60px">
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="name">
+                Name
+              </a>
+            </th>
+            <th>
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="name">
+                Batch
+              </a>
+            </th>
+            <th>
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="email">
+                College
+              </a>
+            </th>
+            <th>
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="id">
+                DSA Score
+              </a>
+            </th>
+            <th>
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="date">
+                WebD Score
+              </a>
+            </th>
+            <th class="w-150px min-w-150px">
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="status">
+                React Score
+              </a>
+            </th>
+            <th class="w-150px min-w-150px">
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="status">
+                Status
+              </a>
+            </th>
+          </tr>
+        </thead>
+
+        <% if (students && students.length > 0) { %>
+          <tbody class="list">
+            <% students.forEach(function(student) { %>
+              <tr>
+                <td>
+                  <span class="name fw-bold"><%= student.name %></span>
+                </td>
+                <td class="email"><%= student.batch %></td>
+                <td class="id"><%= student.college %></td>
+                <td class="date" data-signed="<%= student.dsaScore %>"><%= student.dsaScore %></td>
+                <td class="status"><span class="legend-circle bg-success"></span><%= student.webDScore %></td>
+                <td class="status"><span class="legend-circle bg-success"></span><%= student.reactScore %></td>
+                <td class="status"><span class="legend-circle bg-success"></span><%= student.status %></td>
+                <td>
+                  <a href="/students/edit/<%= student._id %>" class="btn btn-warning btn-sm">Edit</a>
+                  <a href="/students/Delete/<%= student._id %>" class="btn btn-danger btn-sm">Delete</a>
+           
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        <% } else { %>
+          <tr>
+            <td colspan="7">No students to view</td>
+          </tr>
+        <% } %>
+        
+
+      </table>
+    </div>
+
+  </div>
+</div>

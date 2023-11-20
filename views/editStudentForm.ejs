@@ -1,0 +1,66 @@
+<!-- Edit Student Form -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Edit Student</h4>
+                </div>
+                <div class="card-body">
+                    <form action="/students/edit/<%= student._id %>" method="POST">
+                        <!-- Add a hidden input field for studentId -->
+                        <input type="hidden" name="studentId" value="<%= student._id %>">
+
+                        <!-- Name Input -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" value="<%= student.name %>" required>
+                        </div>
+
+                        <!-- Batch Input -->
+                        <div class="mb-3">
+                            <label for="batch" class="form-label">Batch:</label>
+                            <input type="text" class="form-control" id="batch" name="batch" placeholder="2023" value="<%= student.batch %>" required>
+                        </div>
+
+                        <!-- College Input -->
+                        <div class="mb-3">
+                            <label for="college" class="form-label">College:</label>
+                            <input type="text" class="form-control" id="college" name="college" placeholder="Example College" value="<%= student.college %>" required>
+                        </div>
+
+                        <!-- DSA Score Input -->
+                        <div class="mb-3">
+                            <label for="dsaScore" class="form-label">DSA Score:</label>
+                            <input type="number" class="form-control" id="dsaScore" name="dsaScore" placeholder="90" value="<%= student.dsaScore %>" required>
+                        </div>
+
+                        <!-- WebD Score Input -->
+                        <div class="mb-3">
+                            <label for="webDScore" class="form-label">WebD Score:</label>
+                            <input type="number" class="form-control" id="webDScore" name="webDScore" placeholder="80" value="<%= student.webDScore %>" required>
+                        </div>
+
+                        <!-- React Score Input -->
+                        <div class="mb-3">
+                            <label for="reactScore" class="form-label">React Score:</label>
+                            <input type="number" class="form-control" id="reactScore" name="reactScore" placeholder="75" value="<%= student.reactScore %>" required>
+                        </div>
+
+                        <!-- Status Input -->
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status:</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="Placed" <%= student.status === 'Placed' ? 'selected' : '' %>>Placed</option>
+                                <option value="Not Placed" <%= student.status === 'Not Placed' ? 'selected' : '' %>>Not Placed</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,4 @@
+import Student from "../models/students.model.js";
 
 export default class HomeController {
   renderHome(req, res){
@@ -6,7 +7,14 @@ export default class HomeController {
     }
     res.render('home')
   }
-  renderDashboard(req, res){
-    res.render('dashboard');
+  async renderDashboard(req, res){
+    try {
+      const students = await Student.find(); // Fetch students from the database
+      res.render('dashboard', { students });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  
   }
 }
