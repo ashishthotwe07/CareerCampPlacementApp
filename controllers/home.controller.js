@@ -9,8 +9,8 @@ export default class HomeController {
   }
   async renderDashboard(req, res){
     try {
-      const students = await Student.find(); // Fetch students from the database
-      res.render('dashboard', { students });
+      const students = await Student.find().populate('interviews'); // Adjust 'interviews' to the actual field name in your Student model
+      res.render('students/dashboard', { students });
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');

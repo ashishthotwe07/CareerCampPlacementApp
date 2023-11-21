@@ -1,0 +1,104 @@
+<!-- views/interviewStudents.ejs -->
+
+<div class="container mt-5">
+    <h2>Results for <%= interview.company %> Interview</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Result</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% interview.students.forEach(student=> { %>
+                <tr>
+                    <td>
+                        <%= student.name %>
+                    </td>
+                    <td>
+                        <% const resultForInterview=(student.results || []).find(result=> result.interview.toString()
+                            === interview._id.toString()); %>
+                            <%= resultForInterview ? resultForInterview.status : "Didn't Attempt" %>
+                    </td>
+                    <td>
+                        <!-- Button to trigger the modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#updateResultModal_<%= student._id %>">
+                            Update Result
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="updateResultModal_<%= student._id %>" tabindex="-1"
+                            aria-labelledby="updateResultModalLabel_<%= student._id %>" aria-hidden="true">
+
+                            <!-- Form to update or create the result -->
+                            <form action="/interview/updateResult/<%= interview._id %>/<%= student._id %>"
+                                method="POST">
+
+                                <!-- Add a hidden input for result ID -->
+                                <input type="hidden" name="resultId"
+                                    value="<%= resultForInterview ? resultForInterview._id : '' %>">
+
+                                <!-- Add a hidden input to indicate update or create -->
+                                <input type="hidden" name="isUpdate"
+                                    value="<%= resultForInterview ? 'true' : 'false' %>">
+
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="updateResultModalLabel_<%= student._id %>">
+                                                Update Result for <%= student.name %>
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="result" class="form-label">Result:</label>
+
+                                                <!-- Use radio buttons for result options -->
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="result" id="pass"
+                                                        value="Pass" <%=resultForInterview &&
+                                                        resultForInterview.status==='Pass' ? 'checked' : '' %>>
+                                                    <label class="form-check-label" for="pass">Pass</label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="result" id="fail"
+                                                        value="Fail" <%=resultForInterview &&
+                                                        resultForInterview.status==='Fail' ? 'checked' : '' %>>
+                                                    <label class="form-check-label" for="fail">Fail</label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="result"
+                                                        id="onHold" value="On Hold" <%=resultForInterview &&
+                                                        resultForInterview.status==='On Hold' ? 'checked' : '' %>>
+                                                    <label class="form-check-label" for="onHold">On Hold</label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="result"
+                                                        id="didntAttempt" value="Didn't Attempt" <%=!resultForInterview
+                                                        ? 'checked' : '' %>>
+                                                    <label class="form-check-label" for="didntAttempt">Didn't
+                                                        Attempt</label>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Update Result</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+</div>

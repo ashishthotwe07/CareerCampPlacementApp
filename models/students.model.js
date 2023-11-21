@@ -1,5 +1,5 @@
 // models/student.js
-
+import mongoose from 'mongoose';
 import { Schema, model } from 'mongoose';
 
 const studentSchema = new Schema({
@@ -32,6 +32,12 @@ const studentSchema = new Schema({
     enum: ['Placed', 'Not Placed'], 
     default: 'Not Placed',
   },
+  interviews: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Interview'
+  }],
+ 
+
 });
 
 const Student = model('Student', studentSchema);

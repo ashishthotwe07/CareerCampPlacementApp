@@ -1,0 +1,166 @@
+<div class="col">
+
+  <!-- Card -->
+  <div class="card border-0 flex-fill w-100"
+    data-list="{&quot;valueNames&quot;: [&quot;name&quot;, &quot;email&quot;, &quot;id&quot;, {&quot;name&quot;: &quot;date&quot;, &quot;attr&quot;: &quot;data-signed&quot;}, &quot;status&quot;], &quot;page&quot;: 8}"
+    id="users">
+    <div class="card-header border-0 card-header-space-between">
+
+      <!-- Title -->
+      <div class="d-flex justify-content-between">
+        <h2 class="card-header-title h4 text-uppercase">
+          Students
+        </h2>
+
+        <a class="btn btn-outline-success" href="/students/add" role="button">Add Student</a>
+
+      </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table align-middle table-edge table-hover table-nowrap mb-0">
+        <thead class="thead-light">
+          <tr>
+            <th class="w-60px">
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="name">
+                Name
+              </a>
+            </th>
+            <th>
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="name">
+                Batch
+              </a>
+            </th>
+            <th>
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="email">
+                College
+              </a>
+            </th>
+            <th>
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="id">
+                DSA Score
+              </a>
+            </th>
+            <th>
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="date">
+                WebD Score
+              </a>
+            </th>
+            <th class="w-150px min-w-150px">
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="status">
+                React Score
+              </a>
+            </th>
+            <th class="w-150px min-w-150px">
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="status">
+                Status
+              </a>
+            </th>
+            <th>
+              <a href="javascript: void(0);" class="text-muted list-sort" data-sort="interviews">
+                Interviews
+              </a>
+            </th>
+          </tr>
+        </thead>
+
+        <% if (students && students.length> 0) { %>
+          <tbody class="list">
+            <% students.forEach(function(student) { %>
+              <tr>
+                <td>
+                  <span class="name fw-bold">
+                    <%= student.name %>
+                  </span>
+                </td>
+                <td class="email">
+                  <%= student.batch %>
+                </td>
+                <td class="id">
+                  <%= student.college %>
+                </td>
+                <td class="date" data-signed="<%= student.dsaScore %>">
+                  <%= student.dsaScore %>
+                </td>
+                <td class="status"><span class="legend-circle bg-success"></span>
+                  <%= student.webDScore %>
+                </td>
+                <td class="status"><span class="legend-circle bg-success"></span>
+                  <%= student.reactScore %>
+                </td>
+                <td class="status"><span class="legend-circle bg-success"></span>
+                  <%= student.status %>
+                </td>
+                <td class="interviews pl-10">
+                  <a class=" text-secondary" href="#" data-bs-toggle="modal" data-bs-target="#interviewsModal_<%= student._id %>"><i class="fa-solid fa-rectangle-list ml-10"style="
+                    margin-left: 22px;
+"></i></a>
+                  <!-- Modal -->
+                  <!-- Modal -->
+                  <div class="modal fade" id="interviewsModal_<%= student._id %>" tabindex="-1"
+                    aria-labelledby="interviewsModalLabel_<%= student._id %>" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="interviewsModalLabel_<%= student._id %>">Interviews and Results
+                            for <%= student.name %>
+                          </h5>
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="modal-body">
+                            <% if (student.interviews && student.interviews.length > 0) { %>
+                                <h6>Interviews:</h6>
+                                <ul>
+                                    <% student.interviews.forEach(function(interview) { %>
+                                        <li>
+                                            <strong><%= interview.company %></strong> - <%= interview.date %>
+                        
+                                            <!-- Extract the result for the current interview -->
+                                            <% const resultForInterview = (student.results || []).find(result => result.company === interview.company); %>
+                        
+                                            <!-- Display the result or "Didn't Attempt" if not available -->
+                                            <% if (resultForInterview) { %>
+                                                <h6>Result:</h6>
+                                                <p><strong><%= resultForInterview.status %></strong></p>
+                                            <% } else { %>
+                                                <p class="text-danger font-italic">Didn't Attempt</p>
+                                            <% } %>
+                                        </li>
+                                    <% }); %>
+                                </ul>
+                            <% } else { %>
+                                <p>No interviews</p>
+                            <% } %>
+                        </div>
+                        
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td>
+                  <a href="/students/edit/<%= student._id %>" class="btn btn-warning btn-sm">Edit</a>
+                  <a href="/students/Delete/<%= student._id %>" class="btn btn-danger btn-sm">Delete</a>
+
+                </td>
+              </tr>
+              <% }); %>
+          </tbody>
+          <% } else { %>
+            <tr>
+              <td colspan="7">No students to view</td>
+            </tr>
+            <% } %>
+
+
+      </table>
+    </div>
+
+  </div>
+</div>

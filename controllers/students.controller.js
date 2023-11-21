@@ -4,7 +4,7 @@ import Student from "../models/students.model.js";
 
 export default class StudentController {
     renderStudentForm(req, res){
-        res.render('addstudent');
+        res.render('students/addstudent');
     }
 
     async createStudent(req, res) {
@@ -43,7 +43,7 @@ export default class StudentController {
                 return;
             }
 
-            res.render('editStudentForm', { student });
+            res.render('students/editStudentForm', { student });
         } catch (error) {
             console.error(error);
             res.status(500).send('Internal Server Error');

@@ -7,7 +7,7 @@ export default class UserController {
     if(req.isAuthenticated()){
       return res.redirect('/dashboard');
     }
-    res.render('signup');
+    res.render('Users/signup');
   }
 
   // Action for handling user sign-up
@@ -41,7 +41,7 @@ export default class UserController {
     if(req.isAuthenticated()){
       return res.redirect('/dashboard');
     }
-    res.render('signin');
+    res.render('Users/signin');
   }
 
   // Action for handling user sign-in

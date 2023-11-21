@@ -1,0 +1,80 @@
+<!-- List of Interviews Page -->
+<div class="col">
+
+    <!-- Card -->
+    <div class="card border-0 flex-fill w-100" data-list="{&quot;valueNames&quot;: [&quot;company&quot;, &quot;date&quot;], &quot;page&quot;: 8}" id="interviews">
+        <div class="card-header border-0 card-header-space-between">
+
+            <!-- Title -->
+            <div class="d-flex justify-content-between">
+                <h2 class="card-header-title h4 text-uppercase">
+                    Interviews
+                </h2>
+
+                <a class="btn btn-outline-success" href="/interview/add" role="button">Add Interview</a>
+
+            </div>
+
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table align-middle table-edge table-hover table-nowrap mb-0">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            <a href="javascript: void(0);" class="text-muted list-sort" data-sort="company">
+                                Company
+                            </a>
+                        </th>
+                        <th>
+                            <a href="javascript: void(0);" class="text-muted list-sort" data-sort="date">
+                                Date
+                            </a>
+                        </th>
+                        <th class="w-150px min-w-150px">
+                            List
+                        </th>
+                        <th class="w-150px min-w-150px">
+                            Allocate
+                        </th>
+                        <th class="w-150px min-w-150px">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+
+                <% if (interviews && interviews.length > 0) { %>
+                    <tbody class="list">
+                        <% interviews.forEach(function(interview) { %>
+                            <tr>
+                                <td>
+                                    <span class="company fw-bold"><%= interview.company %></span>
+                                </td>
+                                <td class="date"><%= interview.date %></td>
+                                <td>                          
+                                    <a href="/interview/students/<%= interview._id %>">
+                                        <i class="fa-solid fa-clipboard-list text-primary"></i>
+                                    </a>
+                                </td>
+                                <td class="allocate">
+                                    <a href="/interview/allocate/<%= interview._id %>" class="btn btn-primary btn-sm">
+                                        <i class="fa-solid fa-hand-point-up"></i> Allocate Students
+                                    </a>
+                                </td>
+                                <td class="actions">
+                                    <a href="/interview/edit/<%= interview._id %>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="/interview/delete/<%= interview._id %>" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                <% } else { %>
+                    <tr>
+                        <td colspan="4">No interviews to view</td>
+                    </tr>
+                <% } %>
+            </table>
+        </div>
+    </div>
+</div>

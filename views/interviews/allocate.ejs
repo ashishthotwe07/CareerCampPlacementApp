@@ -1,0 +1,28 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Allocate Students</h4>
+                </div>
+                <div class="card-body">
+                    <form action="/interview/allocate/<%= interview._id %>" method="POST">
+                        <h4>Select Students for Allocation</h4>
+
+                        <% students.forEach(function(student) { %>
+                            <div class="form-check">
+                                <!-- Change name="studentIds" to name="studentIds[]" -->
+                                <input class="form-check-input" type="checkbox" value="<%= student._id %>" id="student<%= student._id %>" name="studentIds[]">
+                                <label class="form-check-label" for="student<%= student._id %>">
+                                    <%= student.name %> (<%= student.college %>)
+                                </label>
+                            </div>
+                        <% }); %>
+
+                        <button type="submit" class="btn btn-success mt-3">Allocate Students</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
