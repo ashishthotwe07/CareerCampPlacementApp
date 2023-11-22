@@ -21,10 +21,12 @@ export default class HomeController {
       const students = await Student.find().populate({
         path: 'interviews',
         populate: {
-          path: 'results' // Populate the results for each interview
-        }
+          path: 'results', // Populate the results for each interview
+        },
       });
-
+  
+     
+  
       // Passing both students and the Result model to the template for rendering
       res.render('students/dashboard', { students, Result });
     } catch (error) {
@@ -33,4 +35,5 @@ export default class HomeController {
       res.status(500).send('Internal Server Error');
     }
   }
+  
 }

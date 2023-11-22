@@ -2,18 +2,20 @@ import express from 'express';
 import fastCsv from 'fast-csv';
 import Student from '../models/students.model.js';
 import Interview from '../models/interview.model.js'; // Import Interview model
+import Result from '../models/result.model.js';
+import isAuthenticated from '../middlewares/authentication.middleware.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/',isAuthenticated, async (req, res) => {
   try {
     // Fetch students and populate the 'interviews' field
     const students = await Student.find().populate({
       path: 'interviews',
     });
 
-    // Explicitly populate the 'results' field within each interview
-    await Interview.populate(students, { path: 'interviews.results' });
+    // Fetch all results
+    const allResults = await Result.find();
 
     // Create a CSV stream
     const csvStream = fastCsv.format({ headers: true });
@@ -38,13 +40,17 @@ router.get('/', async (req, res) => {
     ]);
 
     // Write data rows
-    students.forEach(student => {
-      student.interviews.forEach(interview => {
-        const resultStatus = interview.results && interview.results.length > 0
-        ? interview.results.map(result => result.status).join(', ')
-        : 'No Result';
-      
+    for (const student of students) {
+      for (const interview of student.interviews) {
+        // Find the result for the specific interview and student
+        const resultForInterview = allResults.find(result =>
+          result.interview.equals(interview._id) && result.student.equals(student._id)
+        );
 
+        // Get result status for the interview
+        const resultStatus = resultForInterview ? resultForInterview.status : 'Didn\'t Attempt';
+
+        // Write the student data to the CSV stream
         csvStream.write([
           student._id,
           student.name,
@@ -57,11 +63,20 @@ router.get('/', async (req, res) => {
           interview.company,
           resultStatus
         ]);
-      });
-    });
+      }
+    }
 
     // End the CSV stream
     csvStream.end();
+
+    // Wait for the stream to finish before ending the response
+    await new Promise((resolve, reject) => {
+      csvStream
+        .on('finish', resolve)
+        .on('error', reject);
+    });
+
+    console.log('CSV stream finished');
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
