@@ -2,7 +2,7 @@
 import express from 'express';
 import ejs from 'ejs';
 import expressEjsLayouts from 'express-ejs-layouts';
-import path from 'path';
+import path from 'path';        
 import router from './routes/index.js';
 import { db } from './config/mongoose.config.js';
 import session from 'express-session';
@@ -11,6 +11,8 @@ import passportLocal from './config/passport.localStrategy.js'
 import MongoStore from 'connect-mongo';
 import papaparse from 'papaparse';
 import fs from 'fs';
+import flash from 'connect-flash';
+import flashMiddleware from './middlewares/flash.middleware.js';
 
 
 // Create an Express application
@@ -52,6 +54,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setUser)
+
+
+// Using the flash middleware
+app.use(flash());
+app.use(flashMiddleware);
 
 // Set up your routes and other middleware as needed
 

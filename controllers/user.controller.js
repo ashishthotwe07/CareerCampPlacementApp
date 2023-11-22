@@ -15,31 +15,37 @@ export default class UserController {
     res.render('Users/signup');
   }
 
-  // Action for handling user sign-up
   async signUp(req, res) {
     try {
       // Extract user data from the request body
-      const { name, email, password } = req.body;
+      const { name, email, password, confirmPassword } = req.body;
+
+      // Check if the password and confirmPassword match
+      if (password !== confirmPassword) {
+        // Use flash to store an error message
+        req.flash('error', 'Passwords do not match');
+        // Redirect back to the signup form
+        return res.redirect('/users/signup');
+      }
 
       // Hash the password before saving it
       const hashedPassword = await bcrypt.hash(password, 10); // You can adjust the saltRounds
 
       // Create a new user in the database using the User model
       const user = await User.create({
-          name: name,
-          email: email,
-          password: hashedPassword
+        name: name,
+        email: email,
+        password: hashedPassword
       });
 
       // Redirect to the sign-in page after successful sign-up
-      res.redirect('/users/signin'); 
+      res.redirect('/users/signin');
     } catch (error) {
       console.error(error);
       // Handle errors and send a 500 Internal Server Error response
       res.status(500).send('Internal Server Error');
     }
   }
-
   // Action for rendering the sign-in form
   renderSignInForm(req, res) {
     // Check if the user is already authenticated, redirect to dashboard if true

@@ -22,7 +22,7 @@ router.get('/signin', userController.renderSignInForm);
 router.post('/signin', passport.authenticate('local', {
     successRedirect: '/dashboard', // Redirect on successful signin
     failureRedirect: '/users/signin', // Redirect on failure, back to signin
-    failureFlash: true, // Enable flash messages for failure messages
+    failureFlash: 'Incorrect email/Password', // Enable flash messages for failure messages
   }),
   userController.signIn
 );
