@@ -1,4 +1,3 @@
-// models/student.js
 import mongoose from 'mongoose';
 import { Schema, model } from 'mongoose';
 
@@ -36,7 +35,12 @@ const studentSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Interview'
   }],
- 
+  results: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Result'
+    }
+  ]
 
 });
 

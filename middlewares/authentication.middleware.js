@@ -1,4 +1,4 @@
-// Import required modules
+// Import modules
 import passport from 'passport';
 
 // Middleware function for authentication

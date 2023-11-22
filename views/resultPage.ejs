@@ -1,0 +1,78 @@
+<!-- views/resultPage.ejs -->
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Results for <%= interview.company %> Interview</h2>
+
+    <table class="table">
+        <!-- Display the list of students and their results -->
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Result</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <!-- Only enter the loop if there are students -->
+            <% students.forEach(studentResult => { %>
+                <tr>
+                    <% if (studentResult && studentResult.student && studentResult.student._id) { %>
+                        <% console.log("Students:", students); %>
+                        <td><%= studentResult.student.name %></td>
+                        <td><%= studentResult.result %></td>
+                        <td>
+                            <!-- Your update button and modal trigger here -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateResultModal<%= studentResult.student._id %>">
+                                Update Result
+                            </button>
+                        </td>
+                    <% } %>
+                </tr>
+
+                <!-- Modal for updating result -->
+                <% if (studentResult && studentResult.student && studentResult.student._id) { %>
+                    <div class="modal fade" id="updateResultModal<%= studentResult.student._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Update Result for <%= studentResult.student.name %></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Update result form goes here -->
+                                    <form action="/result/update" method="POST">
+                                        <input type="hidden" name="studentId" value="<%= studentResult.student._id %>">
+                                        <input type="hidden" name="interviewId" value="<%= interview._id %>">
+                                        <div class="mb-3">
+                                            <label for="resultStatus" class="form-label">Result Status</label>
+                                            <select class="form-select" id="resultStatus" name="status">
+                                                <option value="Pass">Pass</option>
+                                                <option value="Fail">Fail</option>
+                                                <option value="On Hold">On Hold</option>
+                                                <option value="Didn't Attempt">Didn't Attempt</option>
+                                            </select>
+                                        </div>
+                                        <!-- Add more form fields as needed -->
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+
+            <% }); %>
+        </tbody>
+    </table>
+<!-- Add these console logs for debugging -->
+<% console.log("Students:", students); %>
+
+    <!-- Display a message if there are no students -->
+    <% if (students.length === 0) { %>
+        <p>No student information available</p>
+    <% } %>
+</div>

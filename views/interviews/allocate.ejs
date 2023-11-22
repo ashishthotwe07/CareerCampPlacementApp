@@ -9,15 +9,19 @@
                     <form action="/interview/allocate/<%= interview._id %>" method="POST">
                         <h4>Select Students for Allocation</h4>
 
-                        <% students.forEach(function(student) { %>
-                            <div class="form-check">
-                                <!-- Change name="studentIds" to name="studentIds[]" -->
-                                <input class="form-check-input" type="checkbox" value="<%= student._id %>" id="student<%= student._id %>" name="studentIds[]">
-                                <label class="form-check-label" for="student<%= student._id %>">
-                                    <%= student.name %> (<%= student.college %>)
-                                </label>
-                            </div>
-                        <% }); %>
+                        <% if (students && students.length > 0) { %>
+                            <% students.forEach(function(student) { %>
+                                <div class="form-check">
+                                    <!-- Change name="studentIds" to name="studentIds[]" -->
+                                    <input class="form-check-input" type="checkbox" value="<%= student._id %>" id="student<%= student._id %>" name="studentIds[]">
+                                    <label class="form-check-label" for="student<%= student._id %>">
+                                        <%= student.name %> (<%= student.college %>)
+                                    </label>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>No students available for allocation.</p>
+                        <% } %>
 
                         <button type="submit" class="btn btn-success mt-3">Allocate Students</button>
                     </form>

@@ -45,34 +45,34 @@
                 </thead>
 
                 <% if (interviews && interviews.length > 0) { %>
-                    <tbody class="list">
-                        <% interviews.forEach(function(interview) { %>
-                            <tr>
-                                <td>
-                                    <span class="company fw-bold"><%= interview.company %></span>
-                                </td>
-                                <td class="date"><%= interview.date %></td>
-                                <td>                          
-                                    <a href="/interview/students/<%= interview._id %>">
-                                        <i class="fa-solid fa-clipboard-list text-primary"></i>
-                                    </a>
-                                </td>
-                                <td class="allocate">
-                                    <a href="/interview/allocate/<%= interview._id %>" class="btn btn-primary btn-sm">
-                                        <i class="fa-solid fa-hand-point-up"></i> Allocate Students
-                                    </a>
-                                </td>
-                                <td class="actions">
-                                    <a href="/interview/edit/<%= interview._id %>" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="/interview/delete/<%= interview._id %>" class="btn btn-danger btn-sm">Delete</a>
-                                </td>
-                            </tr>
-                        <% }); %>
-                    </tbody>
-                <% } else { %>
+                <tbody class="list">
+                    <% interviews.forEach(function(interview) { %>
                     <tr>
-                        <td colspan="4">No interviews to view</td>
+                        <td>
+                            <span class="company fw-bold"><%= interview.company %></span>
+                        </td>
+                        <td class="date"><%= interview.date %></td>
+                        <td>
+                            <a href="/result/interview/<%= interview._id %>/results">
+                                <i class="fa-solid fa-clipboard-list text-primary"></i>
+                            </a>
+                        </td>
+                        <td class="allocate">
+                            <a href="/interview/allocate/<%= interview._id %>" class="btn btn-primary btn-sm">
+                                <i class="fa-solid fa-hand-point-up"></i> Allocate Students
+                            </a>
+                        </td>
+                        <td class="actions">
+                            <a href="/interview/edit/<%= interview._id %>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/interview/delete/<%= interview._id %>" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
                     </tr>
+                    <% }); %>
+                </tbody>
+                <% } else { %>
+                <tr>
+                    <td colspan="4">No interviews to view</td>
+                </tr>
                 <% } %>
             </table>
         </div>

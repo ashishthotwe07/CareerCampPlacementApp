@@ -1,4 +1,4 @@
-// models/result.model.js
+
 import mongoose from 'mongoose';
 
 const resultSchema = new mongoose.Schema({
@@ -13,6 +13,7 @@ const resultSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ['Pass', 'Fail', 'On Hold', "Didn't Attempt"],
+    default: "Didn't Attempt", // Default status
   },
 });
 
