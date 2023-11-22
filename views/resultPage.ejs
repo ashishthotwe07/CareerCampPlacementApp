@@ -15,23 +15,24 @@
 
         <tbody>
             <!-- Only enter the loop if there are students -->
+         
             <% students.forEach(studentResult => { %>
                 <tr>
-                    <% if (studentResult && studentResult.student && studentResult.student._id) { %>
+                    
                         <% console.log("Students:", students); %>
                         <td><%= studentResult.student.name %></td>
-                        <td><%= studentResult.result %></td>
+                        <td><%= studentResult.result || "Didnt Attempt" %></td>
                         <td>
                             <!-- Your update button and modal trigger here -->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateResultModal<%= studentResult.student._id %>">
                                 Update Result
                             </button>
                         </td>
-                    <% } %>
+                 
                 </tr>
 
                 <!-- Modal for updating result -->
-                <% if (studentResult && studentResult.student && studentResult.student._id) { %>
+            
                     <div class="modal fade" id="updateResultModal<%= studentResult.student._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -63,13 +64,13 @@
                             </div>
                         </div>
                     </div>
-                <% } %>
+                
 
             <% }); %>
         </tbody>
     </table>
 <!-- Add these console logs for debugging -->
-<% console.log("Students:", students); %>
+
 
     <!-- Display a message if there are no students -->
     <% if (students.length === 0) { %>
