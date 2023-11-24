@@ -7,7 +7,7 @@ export default class HomeController {
   // Method to render the home page
   renderHome(req, res) {
     if (req.isAuthenticated()) {
-      req.flash('success', 'You are already logged in.');
+     
       return res.redirect('/dashboard');
     }
     res.render('home');
