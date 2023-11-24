@@ -110,6 +110,42 @@ async processAllocation(req, res) {
 }
 
 
+// Method to process student unallocation from an interview
+async processUnallocation(req, res) {
+  try {
+    // Extract interviewId and studentIds from the request body
+    const interviewId = req.params.id;
+    const { studentIds } = req.body;
+
+    // Fetch the interview by its ID
+    const interview = await Interview.findById(interviewId);
+
+    // Check if no students are selected for unallocation
+    if (!studentIds || studentIds.length === 0) {
+      return res.redirect('/interview');
+    }
+
+    // Remove students from the interview and update references
+    interview.students = interview.students.filter(student => !studentIds.includes(student.toString()));
+    await interview.save();
+
+    // Update students to remove the interview reference
+    await Student.updateMany(
+      { _id: { $in: studentIds } },
+      { $pull: { interviews: interviewId } }
+    );
+
+    // Redirect to the '/interview' route after successful unallocation
+    req.flash('success', 'Students Unallocated from Interview.');
+    res.redirect('/interview');
+  } catch (error) {
+    console.error(error);
+    // Handle errors
+    res.status(500).send('Internal Server Error');
+  }
+}
+
+
   // Method to render the form for editing an interview
   async renderEditInterviewForm(req, res) {
     try {

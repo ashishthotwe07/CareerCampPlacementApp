@@ -51,7 +51,7 @@
                         <td>
                             <span class="company fw-bold"><%= interview.company %></span>
                         </td>
-                        <td class="date"><%= interview.date %></td>
+                        <td class="date"><%= interview.date.toLocaleDateString() %></td>
                         <td>
                             <a href="/result/interview/<%= interview._id %>/results">
                                 <i class="fa-solid fa-clipboard-list text-primary"></i>

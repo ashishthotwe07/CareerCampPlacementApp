@@ -7,25 +7,59 @@
                 </div>
                 <div class="card-body">
                     <form action="/interview/allocate/<%= interview._id %>" method="POST">
-                        <h4>Select Students for Allocation</h4>
+                        <h4>Unallocated Students</h4>
 
-                        <% if (students && students.length > 0) { %>
-                            <% students.forEach(function(student) { %>
+                        <% const allocatedStudentIds = interview.students.map(student => student.toString()); %>
+                        
+                        <% const unallocatedStudents = students.filter(student => !allocatedStudentIds.includes(student._id.toString())); %>
+
+                        <% if (unallocatedStudents.length > 0) { %>
+                            <% unallocatedStudents.forEach(function(student) { %>
                                 <div class="form-check">
-                                    <!-- Change name="studentIds" to name="studentIds[]" -->
-                                    <input class="form-check-input" type="checkbox" value="<%= student._id %>" id="student<%= student._id %>" name="studentIds[]">
+                                    <input class="form-check-input" type="checkbox" 
+                                        value="<%= student._id %>" 
+                                        id="student<%= student._id %>" 
+                                        name="studentIds[]" 
+                                    >
                                     <label class="form-check-label" for="student<%= student._id %>">
                                         <%= student.name %> (<%= student.college %>)
                                     </label>
                                 </div>
                             <% }); %>
                         <% } else { %>
-                            <p>No students available for allocation.</p>
+                            <p>No unallocated students available for allocation.</p>
                         <% } %>
 
                         <button type="submit" class="btn btn-success mt-3">Allocate Students</button>
                     </form>
                 </div>
+
+                <% if (allocatedStudentIds.length > 0) { %>
+                    <div class="card-body">
+                        <hr>
+                        <h4>Allocated Students</h4>
+                        <form action="/interview/unallocate/<%= interview._id %>" method="POST">
+                            <% students.forEach(function(student) { %>
+                                <% if (allocatedStudentIds.includes(student._id.toString())) { %>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" 
+                                            value="<%= student._id %>" 
+                                            id="student<%= student._id %>" 
+                                            name="studentIds[]" 
+                                            checked
+                                        >
+                                        <label class="form-check-label" for="student<%= student._id %>">
+                                            <%= student.name %> (<%= student.college %>)
+                                        </label>
+                                    </div>
+                                <% } %>
+                            <% }); %>
+                            <button type="submit" class="btn btn-danger mt-3">Unallocate Students</button>
+                        </form>
+                    </div>
+                <% } else { %>
+                    <p>No students allocated.</p>
+                <% } %>
             </div>
         </div>
     </div>

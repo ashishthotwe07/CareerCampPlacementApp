@@ -33,5 +33,8 @@ router.get('/allocate/:id',isAuthenticated, interviewController.allocateStudents
 // Process student allocation for a specific interview
 router.post('/allocate/:id',isAuthenticated, interviewController.processAllocation);
 
+
+router.post('/unallocate/:id', interviewController.processUnallocation);
+
 // Export the router
 export default router;
