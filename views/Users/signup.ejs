@@ -10,14 +10,6 @@
           <h4 class="mb-0">Sign Up</h4>
         </div>
         <div class="card-body">
-          <% if (errorMessages && errorMessages.length > 0) { %>
-            <div class="alert alert-danger">
-                <!-- Loop through error messages and display them -->
-                <% errorMessages.forEach(message => { %>
-                    <p class="mb-0"><%= message %></p>
-                <% }); %>
-            </div>
-        <% } %>
           <form action="/users/signup" method="post">
             <div class="mb-3">
               <label for="name">Name</label>

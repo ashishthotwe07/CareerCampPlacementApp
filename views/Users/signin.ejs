@@ -6,15 +6,6 @@
                     <h4 class="mb-0">Sign In</h4>
                 </div>
                 <div class="card-body">
-                    <!-- Flash Messages for Errors -->
-                    <% if (typeof errorMessages !== 'undefined' && errorMessages.length > 0) { %>
-                        <div class="alert alert-danger" role="alert">
-                            <% errorMessages.forEach(message => { %>
-                                <p><%= message %></p>
-                            <% }); %>
-                        </div>
-                    <% } %>
-
                     <!-- Sign In Form -->
                     <form action="/users/signin" method="post">
                         <!-- Email Input -->

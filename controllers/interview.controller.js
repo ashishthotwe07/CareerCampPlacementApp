@@ -38,6 +38,7 @@ export default class InterviewController {
         date: date,
       });
       // Redirect to the '/interview' route after successful creation
+      req.flash('success', 'Interview created successfully.');
       res.redirect('/interview');
     } catch (error) {
       console.error(error);
@@ -56,6 +57,7 @@ export default class InterviewController {
       // Fetch the interview by its ID
       const interview = await Interview.findById(interviewId);
       // Render the 'allocate' view, passing the interview and students data
+       
       res.render('interviews/allocate', { interview, students });
     } catch (error) {
       console.error(error);
@@ -98,6 +100,7 @@ async processAllocation(req, res) {
     await Promise.all([interview.save(), ...students.map(student => student.save())]);
 
     // Redirect to the '/interview' route after successful allocation
+    req.flash('success', 'Students Allocated to Interivew.');
     res.redirect('/interview');
   } catch (error) {
     console.error(error);
@@ -149,6 +152,7 @@ async processAllocation(req, res) {
       }
 
       // Redirect to the '/interview' route after successful update
+      req.flash('success', 'Interview Updated.');
       res.redirect('/interview');
     } catch (error) {
       console.error(error);
@@ -173,6 +177,7 @@ async processAllocation(req, res) {
       }
 
       // Redirect to the '/interview' route after successful deletion
+      req.flash('success', 'Interview Deleted.');
       res.redirect('/interview');
     } catch (error) {
       console.error(error);

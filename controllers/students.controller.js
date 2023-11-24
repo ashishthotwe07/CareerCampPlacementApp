@@ -27,6 +27,7 @@ export default class StudentController {
             });
 
             // Redirect to the dashboard or send a response, as needed
+            req.flash('success', 'Student Created');
             res.redirect('/dashboard'); // You can adjust the redirection URL
 
         } catch (error) {
@@ -85,6 +86,7 @@ export default class StudentController {
             }
 
             // Redirect to the dashboard or send a response, as needed
+            req.flash('success', 'Students Information updated');
             res.redirect('/dashboard'); // You can adjust the redirection URL
 
         } catch (error) {
@@ -110,6 +112,7 @@ export default class StudentController {
             }
 
             // Redirect to the dashboard or send a response, as needed
+            req.flash('success', 'Students Deleted');
             res.redirect('/dashboard'); // You can adjust the redirection URL
 
         } catch (error) {

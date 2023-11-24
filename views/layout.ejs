@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Your Web App</title>
+    <title>Placement Cell</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -45,6 +45,23 @@
             </div>
         </div>
     </nav>
+
+
+    <div class="flash-messages">
+        <% if (successMessages && successMessages.length > 0) { %>
+            <div class="alert alert-success" role="alert">
+                <%= successMessages[0] %>
+            </div>
+        <% } %>
+
+        <% if (errorMessages && errorMessages.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= errorMessages[0] %>
+            </div>
+        <% } %>
+    </div>
+
+
 
     <div class="container mt-4">
         <%- body %>
