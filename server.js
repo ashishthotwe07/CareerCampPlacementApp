@@ -44,7 +44,7 @@ app.use(session({
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
   },
   store: MongoStore.create({
-    mongoUrl: 'mongodb://0.0.0.0:27017/Career_Camp', // MongoDB connection URL
+    mongoUrl: 'mongodb://localhost:27017/Career_Camp', // MongoDB connection URL
     collectionName: 'sessionData',
     mongooseConnection: db, // Mongoose connection object
   }),
