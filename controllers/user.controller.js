@@ -18,10 +18,10 @@ export default class UserController {
   async signUp(req, res) {
     try {
       // Extract user data from the request body
-      const { name, email, password, confirmPassword } = req.body;
+      const { name, email, password, confirm_password } = req.body;
 
       // Check if the password and confirmPassword match
-      if (password !== confirmPassword) {
+      if (password !== confirm_password) {
         // Use flash to store an error message
         req.flash('error', 'Passwords do not match');
         // Redirect back to the signup form
