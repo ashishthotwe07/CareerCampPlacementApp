@@ -1,4 +1,6 @@
+Certainly! Here's an updated README.md file with details on setting up environment variables, including the MongoDB Atlas connection string:
 
+```markdown
 # CareerCamp Interview Management System
 
 CareerCamp is a comprehensive web application designed for managing student interviews. It provides an intuitive interface for administrators to add students, schedule interviews, track results.
@@ -8,6 +10,7 @@ CareerCamp is a comprehensive web application designed for managing student inte
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
 - [Project Structure](#project-structure)
 - [Running the Application](#running-the-application)
 - [Features](#features)
@@ -16,7 +19,7 @@ CareerCamp is a comprehensive web application designed for managing student inte
 - [Contributing](#contributing)
 - [License](#license)
 
-## Getting Started - How to setup on local system  
+## Getting Started - How to set up on a local system
 
 ### Prerequisites
 
@@ -39,13 +42,23 @@ Make sure you have Node.js installed on your machine. If not, download and insta
 3. **Install Dependencies:**
 
    ```bash
-   npm i
+   npm install
    ```
 
-4. **Set Up MongoDB:**
+4. **Set Up Environment Variables:**
 
-   Ensure that MongoDB is installed and running on the default port (27017). If you have a different MongoDB configuration, update the `config/database.js` file accordingly.
+   Create a `.env` file in the root of your project and configure the following environment variables:
 
+   ```env
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.rrid8sk.mongodb.net/?retryWrites=true&w=majority
+
+   ```
+
+   - `PORT`: The port on which the application will run.
+   - `MONGODB_URI`: Your MongoDB Atlas connection string. Replace `<username>` and `<password>` with your actual MongoDB Atlas credentials.
+   - `SESSION_SECRET`: A secret key for session security.
+
+   If you are using external services (like a third-party authentication provider), you might need additional environment variables.
 
 ## Project Structure
 
@@ -68,6 +81,9 @@ The project is organized using a scalable folder structure to enhance maintainab
    ```
 
    The application will be accessible at [http://localhost:8000](http://localhost:8000).
+
+...
+
 
 ## Features
 
