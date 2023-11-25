@@ -13,11 +13,13 @@ import papaparse from 'papaparse';
 import fs from 'fs';
 import flash from 'connect-flash';
 import flashMiddleware from './middlewares/flash.middleware.js';
+import dotenv from 'dotenv';
 
 
 // Create an Express application
 const app = express();
 
+dotenv.config(); // Load environment variables from .env file
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -44,7 +46,7 @@ app.use(session({
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
   },
   store: MongoStore.create({
-    mongoUrl: 'mongodb://127.0.0.1:27017/Career_Camp', // MongoDB connection URL
+    mongoUrl: process.env.MONGODB_URI, // MongoDB connection URL
     collectionName: 'sessionData',
     mongooseConnection: db, // Mongoose connection object
   }),
