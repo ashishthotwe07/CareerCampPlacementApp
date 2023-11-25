@@ -2,8 +2,7 @@
 import mongoose from "mongoose";
 
 // Connect to the MongoDB database with new URL parser
-mongoose.connect('mongodb://localhost:27017/Career_Camp', { useNewUrlParser: true, useUnifiedTopology: true });
-
+mongoose.connect('mongodb://127.0.0.1:27017/Career_Camp');
 
 // Get the connection object from mongoose
 const db = mongoose.connection;
