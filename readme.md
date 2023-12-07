@@ -1,6 +1,4 @@
-Certainly! Here's an updated README.md file with details on setting up environment variables, including the MongoDB Atlas connection string:
 
-```markdown
 # CareerCamp Interview Management System
 
 CareerCamp is a comprehensive web application designed for managing student interviews. It provides an intuitive interface for administrators to add students, schedule interviews, track results.
